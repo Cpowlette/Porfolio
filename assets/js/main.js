@@ -8,7 +8,7 @@
             Leave empty to use the address the page is currently served from.
    ------------------------------------------------------------------ */
 const CONFIG = {
-  siteUrl: "",
+  siteUrl: "https://cpowlette.github.io/portfolio/",
   resumePath: "assets/docs/Christian_Powlette_Resume.pdf",
   email: "christian.powlette@ontariotechu.net",
 };
