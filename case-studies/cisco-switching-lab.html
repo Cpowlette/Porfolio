@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cisco Switching and Spanning Tree Lab | Christian Powlette</title>
+  <meta name="description" content="A hands-on Cisco switching lab covering EtherChannel and Spanning Tree Protocol validation.">
+  <meta name="theme-color" content="#102026">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="container"><a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">CP</span><span>Christian Powlette</span></a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="nav-toggle-bars" aria-hidden="true"></span>Menu</button><nav class="nav" id="site-nav" aria-label="Primary"><ul class="nav-list"><li><a href="../index.html#top">Home</a></li><li><a href="../index.html#projects">Projects</a></li><li><a href="../index.html#experience">Experience</a></li><li><a href="../index.html#skills">Skills</a></li><li><a href="../index.html#contact">Contact</a></li></ul></nav></div></header>
+  <main id="main">
+    <section class="cs-hero"><div class="container"><p class="cs-crumb"><a href="../index.html#projects">Projects</a> / Case study</p><h1>Cisco Switching and Spanning Tree Lab</h1><p class="cs-summary">Configuring and validating EtherChannel and Spanning Tree Protocol behavior across a switched topology.</p><p class="callout" style="max-width:780px">Ontario Tech University coursework &middot; Networking and Information Technology Security. Screenshots show a lab environment and exclude production systems.</p></div></section>
+    <div class="container cs-layout">
+      <nav class="cs-toc" aria-label="On this page"><ol><li><a href="#objective">Objective</a></li><li><a href="#implementation">Implementation</a></li><li><a href="#validation">Validation</a></li><li><a href="#evidence">Evidence</a></li><li><a href="#learning">Learning</a></li></ol></nav>
+      <article class="cs-body">
+        <section id="objective"><h2>Objective</h2><p>Build a resilient Layer 2 lab topology and confirm that aggregated links and spanning-tree roles behave as intended. The focus was configuration literacy and verification through Cisco IOS command output.</p></section>
+        <section id="implementation"><h2>Implementation</h2><ol class="plain"><li>Configured port-channel interfaces between switches using the selected EtherChannel negotiation protocol.</li><li>Used interface-range configuration to place the relevant switch ports into their channel groups.</li><li>Applied spanning-tree root primary and root secondary roles for the required VLANs.</li><li>Confirmed the final state using EtherChannel summary and spanning-tree root commands.</li></ol></section>
+        <section id="validation"><h2>Validation</h2><div class="table-wrap"><table><thead><tr><th scope="col">Check</th><th scope="col">What it confirms</th></tr></thead><tbody><tr><td>EtherChannel summary</td><td>Member interfaces are bundled into the intended port-channel.</td></tr><tr><td>Protocol status</td><td>The configured LACP or PAgP negotiation method is active for the lab link.</td></tr><tr><td>Spanning-tree root output</td><td>Root bridge selection is consistent with the VLAN role configuration.</td></tr><tr><td>Link-state output</td><td>Interfaces and the logical port-channel transition to the expected operational state.</td></tr></tbody></table></div></section>
+        <section id="evidence"><h2>Configuration evidence</h2><div class="cs-evidence-gallery"><figure><img src="../assets/images/cisco-etherchannel-lab-01.png" alt="Cisco CLI output showing EtherChannel configuration and status"><figcaption>EtherChannel configuration and status</figcaption></figure><figure><img src="../assets/images/cisco-etherchannel-lab-02.png" alt="Cisco CLI output showing EtherChannel summary"><figcaption>Port-channel summary</figcaption></figure><figure><img src="../assets/images/cisco-spanning-tree-lab.png" alt="Cisco CLI output showing spanning-tree root information"><figcaption>Spanning-tree root validation</figcaption></figure></div></section>
+        <section id="learning"><h2>Learning</h2><ul><li>Logical redundancy depends on both correct link aggregation and deliberate loop prevention.</li><li>Verification commands are essential: a successful configuration command alone does not prove the intended operational state.</li><li>Root-bridge placement is a design decision that should align with the topology, not an afterthought.</li></ul><p class="stack-label">Technology stack</p><ul class="chips"><li class="chip">Cisco IOS</li><li class="chip">EtherChannel</li><li class="chip">LACP</li><li class="chip">PAgP</li><li class="chip">Spanning Tree Protocol</li><li class="chip">VLANs</li></ul></section>
+        <div class="cs-nav"><a class="btn btn-ghost" href="secure-nas-deployment.html">Previous: Secure NAS Deployment</a><a class="btn btn-primary" href="../index.html#projects">Back to projects</a></div>
+      </article>
+    </div>
+  </main>
+  <footer class="site-footer"><div class="container"><span>&copy; <span id="year">2026</span> Christian Powlette</span><span>Case studies and samples are sanitized. No confidential material is published on this site.</span></div></footer>
+  <script src="../assets/js/main.js" defer></script>
+</body>
+</html>

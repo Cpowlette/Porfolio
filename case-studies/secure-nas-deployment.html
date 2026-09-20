@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Secure NAS Deployment and Network Hardening | Christian Powlette</title>
+  <meta name="description" content="Centralized storage, role-based access, network segmentation, snapshots, and layered backup for a small nonprofit association.">
+  <meta name="theme-color" content="#102026">
+  <meta property="og:title" content="Secure NAS Deployment and Network Hardening | Christian Powlette">
+  <meta property="og:description" content="Centralized storage, role-based access, network segmentation, snapshots, and layered backup for a small nonprofit association.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23102026'/%3E%3Crect x='3' y='3' width='58' height='58' rx='12' fill='none' stroke='%23d45821' stroke-width='3'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='26' font-weight='700' text-anchor='middle' fill='%23ffffff'%3ECP%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">CP</span><span>Christian Powlette</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="nav-toggle-bars" aria-hidden="true"></span>Menu</button>
+      <nav class="nav" id="site-nav" aria-label="Primary">
+        <ul class="nav-list">
+        <li><a href="../index.html#top">Home</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#skills">Skills</a></li>
+        <li><a href="../index.html#samples">Work Samples</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="cs-hero">
+      <div class="container">
+        <p class="cs-crumb"><a href="../index.html#projects">Projects</a> / Case study</p>
+        <h1>Secure NAS Deployment and Network Hardening</h1>
+        <p class="cs-summary">Centralized storage, role-based access, network segmentation, snapshots, and layered backup for a small nonprofit association.</p>
+        <p class="callout" style="max-width:780px">This case study has been sanitized. Names, identifiers, sample data, screenshots, and selected implementation details have been changed or removed to protect organizational confidentiality.</p>
+      </div>
+    </section>
+    <div class="container cs-layout">
+      <nav class="cs-toc" aria-label="On this page"><ol><li><a href="#background">Background</a></li><li><a href="#problem">Problem</a></li><li><a href="#role">My role</a></li><li><a href="#requirements">Requirements</a></li><li><a href="#architecture">Solution architecture</a></li><li><a href="#security">Security considerations</a></li><li><a href="#workspace">Google Workspace</a></li><li><a href="#implementation">Implementation process</a></li><li><a href="#testing">Testing</a></li><li><a href="#outcome">Outcome</a></li><li><a href="#lessons">Lessons learned</a></li></ol></nav>
+      <article class="cs-body">
+        <section id="background"><h2>Background</h2><p>A professional association with a small team needed a dependable home for its organizational data. I was working as its part-time IT contractor, responsible for the network, workstations and Google Workspace.</p></section><section id="problem"><h2>Problem</h2><p>The organization needed a centralized, recoverable and access-controlled way to store organizational data, and its office and guest wireless traffic needed clearer separation.</p></section><section id="role"><h2>My role</h2><p>I planned, deployed, secured and documented the solution. That covered the storage design, permissions model, backup policy, network segmentation and the written restore procedures.</p></section><section id="requirements"><h2>Requirements</h2><ul><li>One central location for organizational files</li><li>Named NAS sign-in for office members, with group-based access rather than shared credentials</li><li>Access based on role, following least privilege</li><li>Recovery points that make it possible to undo deletions and overwrites</li><li>A second copy of data outside the office</li><li>Guest devices kept away from internal resources</li><li>Restore steps that someone other than me can follow</li></ul></section><section id="architecture"><h2>Solution architecture</h2><p>Internet traffic enters through the router and firewall, which feeds two separated networks. The trusted office network reaches the NAS. The guest network has internet access only.</p><figure class="diagram-frame" style="margin:20px 0"><svg class="diagram" viewBox="0 0 520 470" role="img" aria-label="Secure NAS network diagram: Internet connects to a router and firewall, which splits into a trusted office network and an isolated guest network that has internet access only. The office network reaches the secure NAS, which provides role-based shares, snapshots and cloud backup.">
+      <path class="link " pathLength="1" d="M300 50 V90" style="--d:0.2s"/>
+      <path class="link " pathLength="1" d="M300 140 V165 H190 V190" style="--d:0.7s"/>
+      <path class="link guest" pathLength="1" d="M300 140 V165 H420 V190" style="--d:0.9s"/>
+      <path class="link " pathLength="1" d="M190 240 V300" style="--d:1.2s"/>
+      <path class="link " pathLength="1" d="M190 356 V385 H66 V410" style="--d:1.6s"/>
+      <path class="link " pathLength="1" d="M190 356 V410" style="--d:1.7s"/>
+      <path class="link " pathLength="1" d="M190 356 V385 H314 V410" style="--d:1.8s"/>
+      <line class="barrier" x1="270" y1="215" x2="340" y2="215"/>
+      <path class="barrier-x" d="M298 208 l14 14 M312 208 l-14 14"/>
+      <text class="note" x="305" y="246">isolated</text>
+      <g class="node " style="--d:0s"><rect x="240" y="10" width="120" height="40" rx="10"/><text x="300.0" y="35.0">Internet</text></g>
+      <g class="node core" style="--d:0.4s"><rect x="215" y="90" width="170" height="50" rx="10"/><text x="300.0" y="120.0">Router / Firewall</text></g>
+      <g class="node " style="--d:0.9s"><rect x="115" y="190" width="150" height="50" rx="10"/><text x="190.0" y="212.0">Office network</text><text class="sub" x="190.0" y="230.0">trusted</text></g>
+      <g class="node guest" style="--d:1.1s"><rect x="345" y="190" width="150" height="50" rx="10"/><text x="420.0" y="212.0">Guest network</text><text class="sub" x="420.0" y="230.0">internet only</text></g>
+      <g class="node core" style="--d:1.4s"><rect x="105" y="300" width="170" height="56" rx="10"/><text x="190.0" y="325.0">Secure NAS</text><text class="sub" x="190.0" y="343.0">QNAP · RAID</text></g>
+      <g class="node safe leaf" style="--d:1.9s"><rect x="8" y="410" width="116" height="44" rx="10"/><text x="66.0" y="437.0">RBAC shares</text></g>
+      <g class="node safe leaf" style="--d:2.0s"><rect x="132" y="410" width="116" height="44" rx="10"/><text x="190.0" y="437.0">Snapshots</text></g>
+      <g class="node cloud leaf" style="--d:2.1s"><rect x="256" y="410" width="116" height="44" rx="10"/><text x="314.0" y="437.0">Cloud backup</text></g>
+      
+    </svg><ol class="topology-list flow"><li><strong>Internet</strong> to router and firewall</li><li><strong>Office network</strong> (trusted) to NAS</li><li><strong>Guest network</strong> internet only</li><li><strong>NAS</strong> to RBAC shares, snapshots, cloud backup</li></ol><figcaption>Sanitized network diagram</figcaption></figure><p>The NAS runs RAID storage pools. Shares are exposed over SMB and NFS with permissions assigned to role-based groups rather than individuals.</p></section>
+        <section id="security"><h2>Security considerations</h2><ul><li><strong>Named office-member access:</strong> each office member signs in with an individual NAS account; groups, rather than shared credentials, grant access to the required shares.</li><li><strong>Segmentation:</strong> office and guest wireless traffic are separated so guests cannot reach the NAS.</li><li><strong>Wi-Fi security:</strong> the office network is not advertised publicly where operationally appropriate, but the security control is strong authentication and segmentation—not SSID hiding. WPA3/WPA2-Enterprise is preferred; a unique, randomly generated passphrase of at least 16 characters is used where a PSK is required.</li><li><strong>Administrative access:</strong> management access is restricted, with SSH and VPN configured deliberately rather than left open.</li><li><strong>Router and firewall hardening:</strong> configuration reviewed and tightened as part of the project.</li><li><strong>Recoverability:</strong> snapshots protect against accidental changes; a cloud copy protects against loss of the device.</li></ul></section>
+        <section id="workspace"><h2>Google Workspace integration</h2><p>The recovery design includes a cloud layer for collaboration and off-site redundancy. QNAP Hybrid Backup Sync (HBS) connects the TS-233 to Google Drive or an authorized Google Workspace Shared Drive with OAuth2 rather than a stored password.</p><ol class="plain"><li>Install Hybrid Backup Sync from QTS App Center and authenticate the approved Google Workspace account using OAuth2.</li><li>Create a cloud-storage target for Google Drive or a Shared Drive, then choose the NAS folders covered by the backup policy.</li><li>Configure an encrypted one-way backup for recovery, or a deliberately scoped sync only where collaboration requires it.</li><li>Set a schedule, versioning and retention policy, plus failure notifications so missed jobs are visible to administrators.</li><li>Use File Station cloud access and Qsync only for approved team folders, with NAS permissions and Google Workspace sharing kept aligned.</li></ol><p class="callout"><strong>Security note:</strong> two-step verification protects the Google Workspace account. Backup encryption, named NAS accounts, and role-based groups protect the NAS side. No credentials, SSIDs, IP addresses, or secret values are published in this case study.</p></section>
+        <section id="implementation"><h2>Implementation process</h2><ol class="plain"><li>Deployed the NAS and initialized the storage pool with RAID.</li><li>Defined the folder structure, named users and role-based groups.</li><li>Applied SMB and NFS share permissions per role.</li><li>Scheduled snapshots and layered backup policies, including an encrypted Google Workspace cloud copy.</li><li>Segmented the office and guest wireless networks and hardened router and firewall settings.</li><li>Wrote and stored the restore procedures.</li></ol></section>
+        <section id="testing"><h2>Testing</h2><p>The checks below describe how the deployment is validated. They are also the basis for the recovery sample on the portfolio home page.</p><div class="table-wrap"><table><thead><tr><th scope="col">Check</th><th scope="col">What it proves</th></tr></thead><tbody><tr><td>Sign in as each role and browse shares</td><td>Permissions match the intended access</td></tr><tr><td>Connect a guest device and try to reach the NAS</td><td>Segmentation blocks internal access</td></tr><tr><td>Restore a deleted file from a snapshot</td><td>Recovery points are usable</td></tr><tr><td>Confirm the HBS cloud copy contains recent data</td><td>Off-site Google Workspace backup is running</td></tr><tr><td>Follow the restore document step by step</td><td>The procedure is complete and clear</td></tr></tbody></table></div></section>
+        <section id="outcome"><h2>Outcome</h2><p>The organization gained a structured storage environment with controlled access, scheduled recovery points and documented restoration processes.</p></section><section id="lessons"><h2>Lessons learned</h2><ul><li>Decide the permission groups before creating the shares. It is far easier than untangling them later.</li><li>A backup is only trustworthy once a restore has been rehearsed and written down.</li><li>Separating guest traffic early keeps later network changes simple.</li></ul></section>
+        <section id="tech"><h2>Technologies used</h2><ul class="chips" aria-label="Technologies"><li class="chip">QNAP TS-233</li><li class="chip">QTS 5.x</li><li class="chip">Hybrid Backup Sync</li><li class="chip">Google Workspace</li><li class="chip">OAuth2</li><li class="chip">RAID</li><li class="chip">SMB/NFS</li><li class="chip">SSH</li><li class="chip">VPN</li><li class="chip">Network Segmentation</li><li class="chip">RBAC</li><li class="chip">Snapshots</li><li class="chip">Cloud backup</li></ul></section>
+        <p class="callout">This case study has been sanitized. Names, identifiers, sample data, screenshots, and selected implementation details have been changed or removed to protect organizational confidentiality.</p>
+        <div class="cs-nav"><a class="btn btn-ghost" href="hr-attendance-agent.html">Next: HR Attendance Assistant</a><a class="btn btn-primary" href="../index.html#contact">Get in touch</a></div>
+      </article>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; <span id="year">2026</span> Christian Powlette</span>
+      <span>Case studies and samples are sanitized. No confidential material is published on this site.</span>
+    </div>
+  </footer>
+  <script src="../assets/js/main.js" defer></script>
+</body>
+</html>

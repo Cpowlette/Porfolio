@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Human-in-the-Loop Attendance Assistant | Christian Powlette</title>
+  <meta name="description" content="A controlled Microsoft 365 Copilot assistant that validates attendance messages and prepares a proposed tracker entry, while HR keeps every final decision.">
+  <meta name="theme-color" content="#102026">
+  <meta property="og:title" content="Human-in-the-Loop Attendance Assistant | Christian Powlette">
+  <meta property="og:description" content="A controlled Microsoft 365 Copilot assistant that validates attendance messages and prepares a proposed tracker entry, while HR keeps every final decision.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23102026'/%3E%3Crect x='3' y='3' width='58' height='58' rx='12' fill='none' stroke='%23d45821' stroke-width='3'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='26' font-weight='700' text-anchor='middle' fill='%23ffffff'%3ECP%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">CP</span><span>Christian Powlette</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="nav-toggle-bars" aria-hidden="true"></span>Menu</button>
+      <nav class="nav" id="site-nav" aria-label="Primary">
+        <ul class="nav-list">
+        <li><a href="../index.html#top">Home</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#skills">Skills</a></li>
+        <li><a href="../index.html#samples">Work Samples</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="cs-hero">
+      <div class="container">
+        <p class="cs-crumb"><a href="../index.html#projects">Projects</a> / Case study</p>
+        <h1>Human-in-the-Loop Attendance Assistant</h1>
+        <p class="cs-summary">A controlled Microsoft 365 Copilot assistant that validates attendance messages and prepares a proposed tracker entry, while HR keeps every final decision.</p>
+        <p class="callout" style="max-width:780px">This case study has been sanitized. Names, identifiers, sample data, screenshots, and selected implementation details have been changed or removed to protect organizational confidentiality.</p>
+      </div>
+    </section>
+    <div class="container cs-layout">
+      <nav class="cs-toc" aria-label="On this page"><ol><li><a href="#background">Background</a></li><li><a href="#problem">Problem</a></li><li><a href="#role">My role</a></li><li><a href="#requirements">Requirements</a></li><li><a href="#architecture">Solution architecture</a></li><li><a href="#security">Security and responsible-AI considerations</a></li><li><a href="#implementation">Implementation process</a></li><li><a href="#testing">Testing</a></li><li><a href="#outcome">Outcome</a></li><li><a href="#lessons">Lessons learned</a></li></ol></nav>
+      <article class="cs-body">
+        <section id="background"><h2>Background</h2><p>An HR team tracked absences in an Excel workbook. Each absence email needed the employee identified, the details checked against current attendance guidance, and a row entered in the tracker.</p></section><section id="problem"><h2>Problem</h2><p>The process was repetitive and depended on careful reading. Manager-sent messages, missing dates and duplicate submissions made it easy to record the wrong thing.</p></section><section id="role"><h2>My role</h2><p>I designed and built the assistant during my internship, shared it with HR, and documented its inputs, rules, dependencies and test cases for the next maintainer.</p></section><section id="requirements"><h2>Requirements</h2><ul><li>Read an absence message and pull out the employee, date and stated reason</li><li>Never guess when information is missing or unclear</li><li>Apply current HR attendance guidance</li><li>Produce a summary HR can read quickly and a proposed row in the tracker&rsquo;s column order</li><li>Leave the approval and final attendance decision to a person</li></ul></section><section id="architecture"><h2>Solution architecture</h2><p>The assistant is a controlled HR helper, not an autonomous attendance system. A conversational layer receives the message, extracts context, applies the rules in its instructions and knowledge sources, and prepares a proposal.</p><ol class="flow" aria-label="Workflow"><li>Message or pasted email received</li><li>Sender and employee context extracted</li><li>Required fields validated</li><li>Attendance guidance applied</li><li>Proposed tracker entry and summary prepared</li><li>HR reviews and approves</li></ol><div class="table-wrap"><table><thead><tr><th scope="col">Stage</th><th scope="col">Detail</th></tr></thead><tbody><tr><td>Inputs</td><td>Absence message, sender, employee name, date, reason, organizational data, tracker structure, current HR guidance</td></tr><tr><td>Validation</td><td>Employee identified and minimum tracker fields present; otherwise ask HR</td></tr><tr><td>Processing</td><td>Normalize names and dates, separate the reporting employee from any manager sender, classify the event, summarize guidance</td></tr><tr><td>Output</td><td>HR-readable summary and a proposed tracker row</td></tr></tbody></table></div></section><section id="security"><h2>Security and responsible-AI considerations</h2><p class="callout"><strong>Responsible AI principle:</strong> the assistant supports analysis and data preparation. It does not make final attendance decisions.</p><ul><li>Access is limited to the HR users the agent is shared with.</li><li>Unclear input produces a question for HR rather than an assumption.</li><li>The output is a proposal. A person approves any change to the workbook.</li><li>It depends on stable workbook column names and current policy content, so both are documented.</li></ul></section><section id="implementation"><h2>Implementation process</h2><ol class="plain"><li>Defined the fields and column order the tracker requires.</li><li>Wrote instructions covering extraction, validation, classification and output format.</li><li>Connected the tracker structure and HR guidance as knowledge sources.</li><li>Tested with realistic sample messages.</li><li>Shared the agent with HR and documented access, dependencies and maintenance.</li></ol></section><section id="testing"><h2>Testing</h2><div class="table-wrap"><table><thead><tr><th scope="col">Scenario</th><th scope="col">Expected behaviour</th></tr></thead><tbody><tr><td>Normal absence message</td><td>Complete proposed row and summary</td></tr><tr><td>Message sent by a manager for another employee</td><td>Reporting employee identified separately from the sender</td></tr><tr><td>Missing date</td><td>Assistant asks HR for the date</td></tr><tr><td>Duplicate submission</td><td>Duplicate flagged for review</td></tr><tr><td>Guidance is unclear</td><td>Assistant states the ambiguity and defers to HR</td></tr></tbody></table></div></section><section id="outcome"><h2>Outcome</h2><p>HR received readable summaries and proposed tracker entries for review, with final decisions kept by people. At handoff the work was paused while HR feedback on accuracy and adoption was still being gathered, so the documentation lists what to re-test if the workbook or policy changes.</p></section><section id="lessons"><h2>Lessons learned</h2><ul><li>Clear refusal rules matter as much as clever extraction.</li><li>Automation that touches people&rsquo;s records should propose, not decide.</li><li>Documenting dependencies (file location, column names, sharing) prevents silent breakage later.</li></ul></section>
+        <section id="tech"><h2>Technologies used</h2><ul class="chips" aria-label="Technologies"><li class="chip">Microsoft 365 Copilot</li><li class="chip">SharePoint</li><li class="chip">Excel</li><li class="chip">Human-in-the-Loop</li><li class="chip">Validation</li><li class="chip">Responsible AI</li></ul></section>
+        <p class="callout">This case study has been sanitized. Names, identifiers, sample data, screenshots, and selected implementation details have been changed or removed to protect organizational confidentiality.</p>
+        <div class="cs-nav"><a class="btn btn-ghost" href="secure-nas-deployment.html">Previous: Secure NAS Deployment</a><a class="btn btn-primary" href="../index.html#contact">Get in touch</a></div>
+      </article>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; <span id="year">2026</span> Christian Powlette</span>
+      <span>Case studies and samples are sanitized. No confidential material is published on this site.</span>
+    </div>
+  </footer>
+  <script src="../assets/js/main.js" defer></script>
+</body>
+</html>
