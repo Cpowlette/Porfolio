@@ -189,7 +189,6 @@ ul, ol { margin: 0; padding: 0; }
 .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, .94fr) minmax(390px, 1.06fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
 .hero h1 { font-size: clamp(2.75rem, 6.4vw, 4rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.02; }
 .eyebrow { display: flex; align-items: center; gap: 9px; margin: 0 0 16px; color: #d45821; font: 500 .75rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
-.eyebrow span { display: none; }
 .hero-title { margin: 20px 0 0; color: #d4b9a0; font: 500 clamp(1.1rem, 2vw, 1.45rem)/1.2 var(--font-sans); letter-spacing: -.015em; }
 .hero-lead { margin: 24px 0 32px; color: #ffffff; font-size: 1.125rem; max-width: 56ch; }
 .hero-lead strong { color: #ffffff; font-weight: 600; }
@@ -549,6 +548,8 @@ tr:last-child td { border-bottom: 0; }
 .qr { text-align: center; }
 .qr-box { width: 148px; height: 148px; padding: 10px; background: #ffffff; border: 1px solid var(--border-strong); border-radius: var(--r-md); display: grid; place-items: center; color: var(--ink-dark); font: 400 0.75rem/1.3 var(--font-mono); overflow-wrap: anywhere; }
 .qr-box svg { width: 100%; height: 100%; }
+.qr-link { display: block; color: inherit; text-decoration: none; }
+.qr-link:hover .qr-box, .qr-link:focus-visible .qr-box { border-color: var(--accent-ink); outline: 2px solid var(--accent-ink); outline-offset: 3px; }
 .qr figcaption { margin-top: 10px; color: var(--muted); font-size: 0.9375rem; }
 form.contact-form { padding: clamp(22px, 3vw, 32px); display: grid; gap: 16px; }
 .field { display: grid; gap: 6px; }
@@ -659,13 +660,23 @@ form.contact-form { padding: clamp(22px, 3vw, 32px); display: grid; gap: 16px; }
 .durham-project-gallery-head h4 { color: var(--text); font-size: .98rem; }
 .durham-project-gallery-copy { margin: 8px 0 14px; color: var(--muted); font-size: .88rem; line-height: 1.55; }
 .durham-project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-.durham-project { display: block; min-width: 0; border: 1px solid var(--border); background: #050b10; color: inherit; text-decoration: none; }
+.durham-project { display: block; min-width: 0; padding: 0; border: 1px solid var(--border); background: #050b10; color: inherit; font: inherit; text-align: left; text-decoration: none; cursor: zoom-in; }
 .durham-project:hover, .durham-project:focus-visible { border-color: var(--accent-ink); color: inherit; }
 .durham-project figure { margin: 0; }
 .durham-project img { display: block; width: 100%; height: 126px; object-fit: cover; background: #050b10; }
 .durham-project figcaption { display: grid; gap: 3px; min-height: 55px; padding: 8px 9px; border-top: 1px solid var(--border); }
 .durham-project figcaption strong { color: var(--text); font: 600 .68rem/1.3 var(--font-mono); }
 .durham-project figcaption span { color: var(--muted); font: 400 .58rem/1.3 var(--font-mono); letter-spacing: .035em; text-transform: uppercase; }
+.image-preview-modal { width: min(960px, calc(100vw - 32px)); max-height: min(860px, calc(100vh - 32px)); margin: auto; padding: 0; overflow: auto; border: 1px solid #52bfff; background: #050b10; color: #e7eef4; }
+.image-preview-modal::backdrop { background: rgba(0, 0, 0, .8); backdrop-filter: blur(3px); }
+.image-preview-modal__bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 16px; border-bottom: 1px solid #253a49; color: #91a4b4; font: 500 .68rem var(--font-mono); letter-spacing: .08em; }
+.image-preview-modal__close { border: 1px solid #52bfff; background: transparent; color: #e7eef4; padding: 7px 11px; font: 500 .68rem var(--font-mono); cursor: pointer; }
+.image-preview-modal__close:hover, .image-preview-modal__close:focus-visible { background: #10202d; outline: 2px solid #52bfff; outline-offset: 2px; }
+.image-preview-modal figure { margin: 0; }
+.image-preview-modal img { display: block; width: 100%; max-height: calc(100vh - 170px); object-fit: contain; background: #000; }
+.image-preview-modal figcaption { display: grid; gap: 4px; padding: 14px 16px; border-top: 1px solid #253a49; }
+.image-preview-modal figcaption strong { color: #e7eef4; font: 600 .8rem var(--font-mono); }
+.image-preview-modal figcaption span { color: #91a4b4; font: 400 .72rem/1.45 var(--font-mono); }
 .credential-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 24px; }
 .credential { padding: 18px; }
 .credential h3 { margin: 0 0 8px; }
@@ -777,7 +788,6 @@ form.contact-form { padding: clamp(22px, 3vw, 32px); display: grid; gap: 16px; }
 
 /* Final infrastructure-console accents: kept late so legacy section rules inherit the new system. */
 .eyebrow, .capability-number, .project::before { color: #52bfff; }
-.eyebrow span { background: currentColor; }
 .hero { background: #0a131c; }
 .hero::before { background: radial-gradient(circle at 78% 30%, color-mix(in srgb, #52bfff 15%, transparent), transparent 27%), linear-gradient(110deg, #050b10, #0a131c 58%, #101d29); }
 .hero-title, .hero-ledger span, .hero-portrait figcaption, .topology-inspector code { color: #91a4b4; }

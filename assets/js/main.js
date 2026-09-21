@@ -8,8 +8,9 @@
             Leave empty to use the address the page is currently served from.
    ------------------------------------------------------------------ */
 const CONFIG = {
-  siteUrl: "https://cpowlette.github.io/portfolio/",
-  resumePath: "assets/docs/Christian_Powlette_Resume.pdf",
+  siteUrl: "https://cpowlette.github.io/Portfolio/",
+  projectsPath: "projects.html",
+  resumeUrl: "https://cpowlette.github.io/Portfolio/assets/docs/Christian_Powlette_Resume.pdf",
   email: "christian.powlette@ontariotechu.net",
 };
 
@@ -200,6 +201,37 @@ const CONFIG = {
     }
   }
 
+  /* ---------- Brief console acknowledgement for interactive controls ---------- */
+  const writeInteractionLog = (element) => {
+    if (!terminalOutput || element.matches("[data-image-preview-close]")) return;
+    const text = (element.getAttribute("aria-label") || element.textContent || element.getAttribute("href") || "control")
+      .replace(/\s+/g, " ").trim().slice(0, 72);
+    terminalOutput.textContent = `user.select(\"${text}\") // routing... // system: online`;
+  };
+  document.addEventListener("click", (event) => {
+    const interactive = event.target.closest("a, button, [role='button']");
+    if (interactive) writeInteractionLog(interactive);
+  });
+
+  /* ---------- In-page portfolio image preview ---------- */
+  const imagePreviewModal = $("#image-preview-modal");
+  const imagePreviewImage = $("[data-image-preview-image]", imagePreviewModal || document);
+  const imagePreviewTitle = $("[data-image-preview-title]", imagePreviewModal || document);
+  const imagePreviewDetail = $("[data-image-preview-detail]", imagePreviewModal || document);
+  $$('[data-image-preview]').forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      const image = $("img", trigger);
+      if (!image || !imagePreviewModal || typeof imagePreviewModal.showModal !== "function") return;
+      imagePreviewImage.src = image.currentSrc || image.src;
+      imagePreviewImage.alt = image.alt;
+      imagePreviewTitle.textContent = $("figcaption strong", trigger)?.textContent.trim() || image.alt;
+      imagePreviewDetail.textContent = $("figcaption span", trigger)?.textContent.trim() || "Portfolio image preview";
+      imagePreviewModal.showModal();
+    });
+  });
+  $("[data-image-preview-close]", imagePreviewModal || document)?.addEventListener("click", () => imagePreviewModal.close());
+  imagePreviewModal?.addEventListener("click", (event) => { if (event.target === imagePreviewModal) imagePreviewModal.close(); });
+
   /* ---------- Abstract rack status: informational, never live telemetry ---------- */
   const rackOutput = $("[data-rack-output]");
   if (rackOutput && !reduceMotion) {
@@ -265,7 +297,7 @@ const CONFIG = {
   }
   $$("[data-qr]").forEach((box) => {
     const base = baseUrl();
-    const url = base ? (box.dataset.qr === "resume" ? base + CONFIG.resumePath : base) : "";
+    const url = box.dataset.qr === "resume" ? CONFIG.resumeUrl : (base ? base + CONFIG.projectsPath : "");
     if (!url) { box.closest(".qr-row")?.setAttribute("hidden", ""); return; }
     if (typeof window.qrcode !== "function") { box.textContent = url; return; }
     box.innerHTML = qrSvg(url);
