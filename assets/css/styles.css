@@ -932,6 +932,20 @@ body { font-size: 17px; line-height: 1.72; }
 #nas-diagram .node.guest rect { fill: #101d29; stroke: #f3b75d; }
 #nas-diagram .node.safe rect { stroke: #53f3a6; }
 #nas-diagram .node.cloud rect { stroke: #52bfff; }
+.cs-body .diagram { --dg-node: #152431; --dg-stroke: #52bfff; --dg-text: #f4f8fb; --dg-sub: #c6d6e3; background: #0a131c; }
+.cs-body .diagram .node rect { fill: #152431; }
+.cs-body .diagram .node text { fill: #f4f8fb; }
+.cs-body .diagram .node .sub, .cs-body .diagram .note { fill: #c6d6e3; }
+.cs-body .diagram .node.guest rect { fill: #101d29; stroke: #f3b75d; }
+.cs-body .diagram .node.safe rect { stroke: #53f3a6; }
+.cs-body .diagram .node.cloud rect { stroke: #52bfff; }
+.hero-topology .diagram { --dg-node: #152431; --dg-stroke: #52bfff; --dg-text: #f4f8fb; --dg-sub: #c6d6e3; background: #0a131c; }
+.hero-topology .diagram .node rect { fill: #152431; }
+.hero-topology .diagram .node text { fill: #f4f8fb; }
+.hero-topology .diagram .node .sub, .hero-topology .diagram .note { fill: #c6d6e3; }
+.hero-topology .diagram .node.guest rect { fill: #101d29; stroke: #f3b75d; }
+.hero-topology .diagram .node.safe rect { stroke: #53f3a6; }
+.hero-topology .diagram .node.cloud rect { stroke: #52bfff; }
 .directory-featured { border-top-color: #53f3a6; }
 .directory-surface .project-mini-photo { height: 250px; object-position: top left; }
 
