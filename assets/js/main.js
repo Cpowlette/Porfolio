@@ -20,6 +20,50 @@ const CONFIG = {
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* ---------- Short section-routing acknowledgement ---------- */
+  const packetTransition = $("[data-packet-transition]");
+  const packetStage = $("[data-packet-stage]");
+  const playPacketTransition = () => {
+    if (reduceMotion || !packetTransition || !packetStage) return;
+    const stages = ["PACKET SENT", "PACKET RECEIVED", "AUTHENTICATED", "LOADING RESOURCE"];
+    packetTransition.removeAttribute("aria-hidden");
+    packetTransition.classList.remove("is-active");
+    void packetTransition.offsetWidth;
+    packetTransition.classList.add("is-active");
+    stages.forEach((stage, index) => window.setTimeout(() => { packetStage.textContent = stage; }, index * 105));
+    window.setTimeout(() => {
+      packetTransition.classList.remove("is-active");
+      packetTransition.setAttribute("aria-hidden", "true");
+    }, 470);
+  };
+  $$('a[href^="#"]').forEach((link) => {
+    if (link.classList.contains("skip-link")) return;
+    link.addEventListener("click", () => playPacketTransition());
+  });
+
+  /* ---------- Evidence counters ---------- */
+  const counters = $$('[data-counter]');
+  if (counters.length) {
+    const fillCounter = (counter) => {
+      const target = Number(counter.dataset.counterTarget || 0);
+      if (reduceMotion) { counter.textContent = String(target); return; }
+      const start = performance.now();
+      const duration = 680;
+      const render = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        counter.textContent = String(Math.round(target * progress));
+        if (progress < 1) requestAnimationFrame(render);
+      };
+      requestAnimationFrame(render);
+    };
+    if ("IntersectionObserver" in window && !reduceMotion) {
+      const observer = new IntersectionObserver((entries, instance) => entries.forEach((entry) => {
+        if (entry.isIntersecting) { fillCounter(entry.target); instance.unobserve(entry.target); }
+      }), { threshold: 0.7 });
+      counters.forEach((counter) => observer.observe(counter));
+    } else counters.forEach(fillCounter);
+  }
+
   /* ---------- Respectful section reveals ---------- */
   if (!reduceMotion && "IntersectionObserver" in window) {
     document.documentElement.classList.add("motion-ready");
@@ -99,8 +143,7 @@ const CONFIG = {
 
   /* ---------- Hero topology inspector: public, sanitized controls ---------- */
   const topology = {
-    router: { title: "Router / Firewall", output: "policy: segmented office + guest traffic" },
-    office: { title: "Office network", output: "trust-zone: managed devices / approved services" },
+    office: { title: "Office network", output: "control: strong password / approved services" },
     guest: { title: "Guest network", output: "route: internet only / internal resources blocked" },
     nas: { title: "Secure NAS", output: "access: named users + role-based shares / encrypted backup" },
     wifi: { title: "Secure Wi-Fi", output: "control: strong authentication + isolated IoT access" },
@@ -126,12 +169,14 @@ const CONFIG = {
   const terminalOutput = $("[data-terminal-output]");
   if (terminalOutput) {
     const lines = [
-      "show access-policy --summary",
-      "OFFICE: restricted / guest: isolated / NAS: named users",
-      "show backup-status --target=workspace",
-      "HBS: encrypted schedule / versioning / alerting enabled",
-      "show vlan brief --sanitized",
-      "trusted office + guest VLAN separation: verified",
+      "show project secure-nas --controls",
+      "Secure NAS: segmented / named access / recovery validation",
+      "show experience signature-aluminum --summary",
+      "IT support: endpoints / SOPs / Microsoft 365 workflows",
+      "show automation inventory-pipeline --status",
+      "3 agents: BOM match / classification / stock category",
+      "show migration workspace --controls",
+      "Google Workspace: MFA / mail authentication / access governance",
     ];
     if (reduceMotion) {
       terminalOutput.textContent = lines[1];
