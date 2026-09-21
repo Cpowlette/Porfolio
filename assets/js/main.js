@@ -169,14 +169,12 @@ const CONFIG = {
   const terminalOutput = $("[data-terminal-output]");
   if (terminalOutput) {
     const lines = [
-      "show project secure-nas --controls",
-      "Secure NAS: segmented / named access / recovery validation",
-      "show experience signature-aluminum --summary",
-      "IT support: endpoints / SOPs / Microsoft 365 workflows",
-      "show automation inventory-pipeline --status",
-      "3 agents: BOM match / classification / stock category",
-      "show migration workspace --controls",
-      "Google Workspace: MFA / mail authentication / access governance",
+      "show project secure-nas --summary",
+      "Secure NAS: QNAP / RAID / recovery planning",
+      "show project google-workspace --summary",
+      "Google Workspace: Gmail / DNS / migration planning",
+      "show project drabpe-directory --summary",
+      "DRABPE Directory: Supabase / Postgres / subdomains",
     ];
     if (reduceMotion) {
       terminalOutput.textContent = lines[1];

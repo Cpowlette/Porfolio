@@ -38,6 +38,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 16px); -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
@@ -912,14 +913,17 @@ body { font-size: 17px; line-height: 1.72; }
 .nas-gallery img { height: 132px; }
 .nas-gallery figcaption { min-height: 2.8em; padding: 8px 10px; color: #b8c6d1; line-height: 1.4; overflow-wrap: anywhere; }
 #nas-diagram { --dg-node: #152431; --dg-text: #e7eef4; --dg-sub: #b8c6d1; }
-#nas-diagram .node rect { fill: #152431; }
-#nas-diagram .node text { fill: #e7eef4; font-size: 14px; }
-#nas-diagram .node .sub, #nas-diagram .note { fill: #b8c6d1; }
+#nas-diagram { background: #0a131c; }
+#nas-diagram .node rect { fill: #152431 !important; }
+#nas-diagram .node text { fill: #f4f8fb !important; font-size: 14px; }
+#nas-diagram .node .sub, #nas-diagram .note { fill: #c6d6e3 !important; }
 #nas-diagram .node.leaf text { font-size: 12px; }
 #nas-diagram .link { stroke: #52bfff; stroke-opacity: .9; }
 #nas-diagram .node.guest rect { fill: #101d29; stroke: #f3b75d; }
 #nas-diagram .node.safe rect { stroke: #53f3a6; }
 #nas-diagram .node.cloud rect { stroke: #52bfff; }
+.directory-featured { border-top-color: #53f3a6; }
+.directory-surface .project-mini-photo { height: 250px; object-position: top left; }
 
 /* Full deployment records for Workspace and the three-agent inventory workflow. */
 .migration-featured, .pipeline-featured { border-top-color: #52bfff; }
